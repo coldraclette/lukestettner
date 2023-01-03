@@ -6,6 +6,7 @@ import { returnVideoUrl } from "../lib/utils";
 
 export const ProjectItems = ({ items, onProjectOpen, onProjectClose }) => {
   const [projectOpen, setProjectOpen] = useState(false);
+
   const components = {
     block: {
       normal: ({ children }) => <p>{children}</p>,
@@ -14,7 +15,12 @@ export const ProjectItems = ({ items, onProjectOpen, onProjectClose }) => {
 
   const renderCorrectItem = (item) => {
     if (item._type === "image") {
-      return <img alt="" src={urlForImage(item).url()} />;
+      return (
+        <div className="image-wrapper">
+          <img alt="" src={urlForImage(item).url()} />
+          <div className="image-text">lol</div>
+        </div>
+      );
     }
 
     if ("textblock" in item) {
@@ -39,20 +45,33 @@ export const ProjectItems = ({ items, onProjectOpen, onProjectClose }) => {
 
   const onItemClick = (e) => {
     const topPos = e.target.offsetLeft;
-    console.log(e.target, e.target.parentElement.parentElement);
     if (projectOpen) {
       onProjectClose();
-      e.target.parentElement.parentElement.classList.remove("imagerowlarge");
-      e.target.parentElement.parentElement.scrollLeft = topPos / 5.5;
+      if (e.target.className === "copyblock") {
+        e.target.parentElement.parentElement.classList.remove("imagerowlarge");
+        e.target.parentElement.parentElement.scrollLeft = topPos / 6.3;
+      } else {
+        e.target.parentElement.parentElement.parentElement.classList.remove(
+          "imagerowlarge"
+        );
+        e.target.parentElement.parentElement.parentElement.scrollLeft =
+          topPos / 5.5;
+      }
     } else {
       onProjectOpen();
       if (e.target.className === "rowItem") {
         e.target.parentElement.classList.add("imagerowlarge");
         e.target.parentElement.scrollLeft = e.target.offsetLeft - 10;
-      } else {
+      } else if (e.target.className === "copyblock") {
         e.target.parentElement.parentElement.classList.add("imagerowlarge");
         e.target.parentElement.parentElement.scrollLeft =
           e.target.offsetLeft - 10;
+      } else {
+        e.target.parentElement.parentElement.parentElement.classList.add(
+          "imagerowlarge"
+        );
+        e.target.parentElement.parentElement.parentElement.scrollLeft =
+          e.target.parentElement.offsetLeft - 10;
       }
     }
     setProjectOpen(!projectOpen);
