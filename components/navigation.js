@@ -5,7 +5,7 @@ export const Navigation = ({ backgroundColor }) => {
         <h1>luke stettner</h1>
       </div>
 
-      {/* mobile nav */}
+      
       <div className="topright">index</div>
     </nav>
   );
