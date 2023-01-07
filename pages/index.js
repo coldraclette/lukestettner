@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Projects } from "../components/projects";
 import { Navigation } from "../components/navigation";
 import { getProjectsData, getSiteSettings } from "../lib/api";
+import Head from "next/head";
 
 export default function Home({ projects, projectTitleAndId, siteSettings }) {
   const [artworkCloseClicked, setArtworkCloseClicked] = useState({
@@ -23,12 +24,24 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
   const onArtworkCloseClicked = () => {
     setArtworkCloseClicked({ clicked: true, project: currentProject.id });
   };
-
   return (
     <div
       id="main"
       style={{ backgroundColor: backgroundColor.hex, color: fontColor.hex }}
     >
+      <Head>
+        <title>{siteSettings.siteTitle}</title>
+        <meta name="description" content={siteSettings.siteDescription} />
+        <meta property="og:title" content={siteSettings.siteTitle} />
+        <meta
+          property="og:description"
+          content={siteSettings.siteDescription}
+          key="ogdesc"
+        />
+        <meta property="og:url" content={`https://lukestettner.com/`} />
+        <meta property="og:type" content="website" />
+        {/* <meta property="og:image" content={imgUrl} key="ogimage" /> */}
+      </Head>
       <Navigation
         backgroundColor={backgroundColor.hex}
         currentProject={currentProject}
