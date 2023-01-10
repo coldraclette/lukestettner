@@ -18,6 +18,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
     siteSettings;
 
   const onProjectClicked = (id, title, projectOpen) => {
+    console.log("clicked", id, title, projectOpen)
     setCurrentProject({ id, title, projectOpen });
   };
 
