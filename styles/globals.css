@@ -17,7 +17,7 @@ body {
   overflow: auto;
 }
 
-#top {
+.navigation {
   position: fixed;
   top: 0;
   left: 0;
@@ -25,9 +25,13 @@ body {
   height: 90px;
   z-index: 100;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 0 5%;
+  padding-top: 20px;
+}
+
+.navigation h1 {
+  margin: 0;
 }
 
 #index a:hover {
@@ -43,13 +47,18 @@ body {
 }
 
 h1,
-.navigation {
+.navigation-menu {
   font-size: 16pt;
   font-weight: 400;
 }
 
 .project-title {
   font-size: 14pt;
+  position: fixed;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 40px;
 }
 
 .row {
@@ -103,6 +112,7 @@ h1,
   white-space: nowrap;
   overflow-y: hidden;
   margin-left: 10px;
+  margin-top: 20px;
 }
 
 .imagerowlarge img {
@@ -191,6 +201,10 @@ a {
   color: #000;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 .overlay {
   display: none;
   background: rgba(255, 255, 255, 0.9);
@@ -201,18 +215,53 @@ a {
   right: 0;
 }
 
+.navigation--opened {
+  position: fixed;
+  z-index: 999;
+  font-size: 26px;
+  width: 100%;
+}
+
+.navigation--opened ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+  margin-bottom: 6px;
+}
+
 @media screen and (min-width: 751px) {
-  h1,
   .navigation {
+    align-items: center;
+    padding-top: 0;
+  }
+
+  h1,
+  .navigation--opened {
     font-size: 20pt;
   }
 
+  .navigation--opened {
+    font-size: 40px;
+  }
+
   .project-title {
-    font-size: 20pt;
+    font-size: 16pt;
+    font-weight: 400;
+    margin-top: 0;
+    width: auto;
+    position: relative;
   }
 
   .imagerowlarge {
     overflow-x: scroll;
+    margin-top: 0;
   }
 
   .imagerowlarge img {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { hideOverlay, showOverlay } from "../lib/utils";
 
 export const Navigation = ({
   backgroundColor,
@@ -19,41 +20,57 @@ export const Navigation = ({
     }
   }, [isOpen, currentProject]);
 
+  useEffect(() => {
+    if (isOpen) {
+      showOverlay();
+    } else {
+      hideOverlay();
+    }
+  }, [isOpen]);
+
   const onMenuClicked = () => {
     if (currentMenuText === "close artwork") {
       onArtworkCloseClicked();
       setCurrentMenuText("index");
     }
-
     if (currentMenuText !== "close artwork") {
       setIsOpen(!isOpen);
     }
   };
 
+  const scrollToProject = (id) => {
+    window.scrollTo({
+      top: document.getElementById(id).offsetTop,
+      behavior: "smooth",
+    });
+  };
+
   const renderOpenedNavigationList = () => {
     return projects.map((project) => {
-      return <li key={project.id}>{project.title}</li>;
+      return (
+        <li key={project.id}>
+          <a onClick={() => scrollToProject(project.id)}>{project.title}</a>
+        </li>
+      );
     });
   };
 
   return (
     <>
-      <nav id="top" style={{ backgroundColor: backgroundColor }}>
-        <div className="topleft">
-          <h1>luke stettner</h1>
-        </div>
+      <nav className="navigation" style={{ backgroundColor: backgroundColor }}>
+        <h1>luke stettner</h1>
 
-        {/* <div className="project-title">{currentProject.title}</div> */}
+        <div className="project-title">{currentProject.title}</div>
 
-        <div className="navigation" onClick={() => onMenuClicked()}>
+        <div className="navigation-menu" onClick={() => onMenuClicked()}>
           {currentMenuText}
         </div>
       </nav>
-      {/* {isOpen && (
-        <div>
+      {isOpen && (
+        <div className="navigation--opened">
           <ul>{renderOpenedNavigationList()}</ul>
         </div>
-      )} */}
+      )}
     </>
   );
 };

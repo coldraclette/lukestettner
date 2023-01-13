@@ -14,31 +14,23 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
     title: "",
     projectOpen: false,
   });
-  const { siteTitle, siteDescription, backgroundColor, fontColor } =
-    siteSettings;
+  const { siteTitle, siteDescription, backgroundColor, fontColor } = siteSettings;
 
   const onProjectClicked = (id, title, projectOpen) => {
-    console.log("clicked", id, title, projectOpen)
     setCurrentProject({ id, title, projectOpen });
   };
 
   const onArtworkCloseClicked = () => {
     setArtworkCloseClicked({ clicked: true, project: currentProject.id });
   };
+
   return (
-    <div
-      id="main"
-      style={{ backgroundColor: backgroundColor.hex, color: fontColor.hex }}
-    >
+    <div id="main" style={{ backgroundColor: backgroundColor.hex, color: fontColor.hex }}>
       <Head>
-        <title>{siteSettings.siteTitle}</title>
-        <meta name="description" content={siteSettings.siteDescription} />
-        <meta property="og:title" content={siteSettings.siteTitle} />
-        <meta
-          property="og:description"
-          content={siteSettings.siteDescription}
-          key="ogdesc"
-        />
+        <title>{siteTitle}</title>
+        <meta name="description" content={siteDescription} />
+        <meta property="og:title" content={siteTitle} />
+        <meta property="og:description" content={siteDescription} key="ogdesc" />
         <meta property="og:url" content={`https://lukestettner.com/`} />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content={imgUrl} key="ogimage" /> */}
@@ -51,9 +43,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
       />
       <Projects
         projects={projects}
-        onProjectClicked={(id, title, projectOpen) =>
-          onProjectClicked(id, title, projectOpen)
-        }
+        onProjectClicked={(id, title, projectOpen) => onProjectClicked(id, title, projectOpen)}
         artworkCloseClicked={artworkCloseClicked}
       />
     </div>
@@ -65,9 +55,7 @@ export const getStaticProps = async () => {
   const siteSettings = await getSiteSettings();
 
   const projectTitleAndId = [];
-  projects.map((project) =>
-    projectTitleAndId.push({ id: project._id, title: project.title })
-  );
+  projects.map((project) => projectTitleAndId.push({ id: project._id, title: project.title }));
 
   return {
     props: { projects, projectTitleAndId, siteSettings },
