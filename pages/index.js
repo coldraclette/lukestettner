@@ -5,6 +5,7 @@ import { getProjectsData, getSiteSettings } from "../lib/api";
 import Head from "next/head";
 
 export default function Home({ projects, projectTitleAndId, siteSettings }) {
+  const { siteTitle, siteDescription, backgroundColor, fontColor, menuString } = siteSettings;
   const [artworkCloseClicked, setArtworkCloseClicked] = useState({
     clicked: false,
     project: null,
@@ -14,7 +15,6 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
     title: "",
     projectOpen: false,
   });
-  const { siteTitle, siteDescription, backgroundColor, fontColor } = siteSettings;
 
   const onProjectClicked = (id, title, projectOpen) => {
     setCurrentProject({ id, title, projectOpen });
@@ -36,6 +36,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
         {/* <meta property="og:image" content={imgUrl} key="ogimage" /> */}
       </Head>
       <Navigation
+        menuString={menuString}
         backgroundColor={backgroundColor.hex}
         currentProject={currentProject}
         projects={projectTitleAndId}
@@ -55,7 +56,9 @@ export const getStaticProps = async () => {
   const siteSettings = await getSiteSettings();
 
   const projectTitleAndId = [];
-  projects.map((project) => projectTitleAndId.push({ id: project._id, title: project.title }));
+  projects.map((project) =>
+    projectTitleAndId.push({ id: project._id, title: project.title, year: project.year })
+  );
 
   return {
     props: { projects, projectTitleAndId, siteSettings },
