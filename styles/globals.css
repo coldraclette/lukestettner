@@ -52,8 +52,12 @@ h1,
   font-weight: 400;
 }
 
+.navigation-menu {
+  cursor: pointer;
+}
+
 .project-title {
-  font-size: 14pt;
+  font-size: 16pt;
   position: fixed;
   left: 0;
   text-align: center;
@@ -249,11 +253,12 @@ ul li {
   }
 
   .navigation--opened {
-    font-size: 40px;
+    font-size: 40pt;
+    text-align: center;
   }
 
   .project-title {
-    font-size: 16pt;
+    font-size: 20pt;
     font-weight: 400;
     margin-top: 0;
     width: auto;
