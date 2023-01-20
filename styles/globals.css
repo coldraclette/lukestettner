@@ -80,7 +80,7 @@ h1,
   overflow-x: scroll;
   width: auto;
   white-space: nowrap;
-  margin-left: 5%;
+  padding-left: 5%;
   display: flex;
 }
 
@@ -115,7 +115,6 @@ h1,
   width: 100%;
   white-space: nowrap;
   overflow-y: hidden;
-  margin-left: 10px;
   margin-top: 20px;
 }
 
@@ -248,6 +247,7 @@ ul li {
   }
 
   h1,
+  .navigation-menu,
   .navigation--opened {
     font-size: 20pt;
   }
