@@ -50,7 +50,7 @@ export const ProjectItems = ({
 
   return (
     <div className="imagerow" id={projectId} ref={rowRef}>
-      {items.map((item) => {
+      {items && items.map((item) => {
         return (
           <div key={item._key} className="rowItem" onClick={() => handleProjectClick()}>
             {renderCorrectItem(item)}

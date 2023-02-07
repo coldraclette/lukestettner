@@ -7,6 +7,7 @@ export const Navigation = ({
   currentProject,
   projects,
   onArtworkCloseClicked,
+  siteTitle
 }) => {
   const [currentMenuText, setCurrentMenuText] = useState(menuString);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +69,7 @@ export const Navigation = ({
   return (
     <>
       <nav className="navigation" style={{ backgroundColor: backgroundColor }}>
-        <h1>luke stettner</h1>
+        <h1>{siteTitle}</h1>
         <div className="project-title">{currentProject.title}</div>
         <div className="navigation-menu" onClick={() => onMenuClicked()}>
           {currentMenuText}

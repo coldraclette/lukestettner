@@ -53,7 +53,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
         <meta name="description" content={siteDescription} />
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} key="ogdesc" />
-        <meta property="og:url" content={`https://lukestettner.com/`} />
+        <meta property="og:url" content={`https://carmenwinant.com/`} />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content={imgUrl} key="ogimage" /> */}
       </Head>
@@ -63,6 +63,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
         currentProject={currentProject}
         projects={projectTitleAndId}
         onArtworkCloseClicked={() => onArtworkCloseClicked()}
+        siteTitle={siteTitle}
       />
       <Projects
         projects={projects}
