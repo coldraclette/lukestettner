@@ -1,6 +1,6 @@
 import { ProjectItems } from "./projectItems";
 
-export const Projects = ({ projects, onProjectClicked, artworkCloseClicked }) => {
+export const Projects = ({ projects, onProjectClicked, artworkCloseClicked, backgroundColor }) => {
   return (
     <>
       {projects.map((project) => {
@@ -17,7 +17,7 @@ export const Projects = ({ projects, onProjectClicked, artworkCloseClicked }) =>
           </div>
         );
       })}
-      <div className="overlay" id="overlay" />
+      <div className="overlay" id="overlay" style={{background: backgroundColor}} />
     </>
   );
 };

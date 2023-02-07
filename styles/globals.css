@@ -211,7 +211,7 @@ a:hover {
 
 .overlay {
   display: none;
-  background: rgba(255, 255, 255, 0.9);
+  opacity: 0.9;
   height: 100%;
   width: 100%;
   position: absolute;

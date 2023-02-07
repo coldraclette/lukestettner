@@ -60,6 +60,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
       <Navigation
         menuString={menuString}
         backgroundColor={backgroundColor.hex}
+        fontColor={fontColor.hex}
         currentProject={currentProject}
         projects={projectTitleAndId}
         onArtworkCloseClicked={() => onArtworkCloseClicked()}
@@ -69,6 +70,7 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
         projects={projects}
         onProjectClicked={(id, title, projectOpen) => onProjectClicked(id, title, projectOpen)}
         artworkCloseClicked={artworkCloseClicked}
+        backgroundColor={backgroundColor.hex}
       />
     </div>
   );

@@ -4,10 +4,11 @@ import { hideOverlay, showOverlay } from "../lib/utils";
 export const Navigation = ({
   menuString,
   backgroundColor,
+  fontColor,
   currentProject,
   projects,
   onArtworkCloseClicked,
-  siteTitle
+  siteTitle,
 }) => {
   const [currentMenuText, setCurrentMenuText] = useState(menuString);
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +61,9 @@ export const Navigation = ({
     return projects.map((project) => {
       return (
         <li key={project.id}>
-          <a onClick={() => scrollToProject(project.id)}>{renderProjectAndYear(project)}</a>
+          <a onClick={() => scrollToProject(project.id)} style={{ color: fontColor }}>
+            {renderProjectAndYear(project)}
+          </a>
         </li>
       );
     });
