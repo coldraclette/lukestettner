@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Projects } from "../components/projects";
 import { Navigation } from "../components/navigation";
 import { getProjectsData, getSiteSettings } from "../lib/api";
-import Head from "next/head";
 import localFont from "@next/font/local";
 import { Public_Sans } from "@next/font/google";
 import { Old_Standard_TT } from "@next/font/google";
+import { NextSeo } from "next-seo";
 
 const fontUnivers = localFont({ src: "./font/univers.ttf" });
 const fontPublicSans = Public_Sans({ subsets: ["latin"], weight: ["400"] });
@@ -43,36 +43,52 @@ export default function Home({ projects, projectTitleAndId, siteSettings }) {
   };
 
   return (
-    <div
-      id="main"
-      className={applyFontFamily()}
-      style={{ backgroundColor: backgroundColor.hex, color: fontColor.hex }}
-    >
-      <Head>
-        <title>{siteTitle}</title>
-        <meta name="description" content={siteDescription} />
-        <meta property="og:title" content={siteTitle} />
-        <meta property="og:description" content={siteDescription} key="ogdesc" />
-        <meta property="og:url" content={`https://lukestettner.com/`} />
-        <meta property="og:type" content="website" />
-        {/* <meta property="og:image" content={imgUrl} key="ogimage" /> */}
-      </Head>
-      <Navigation
-        menuString={menuString}
-        backgroundColor={backgroundColor.hex}
-        fontColor={fontColor.hex}
-        currentProject={currentProject}
-        projects={projectTitleAndId}
-        onArtworkCloseClicked={() => onArtworkCloseClicked()}
-        siteTitle={siteTitle}
+    <>
+      <NextSeo
+        title={siteTitle}
+        description={siteDescription}
+        canonical={`https://lukestettner.com/`}
+        openGraph={{
+          url: `https://lukestettner.com/`,
+          title: siteTitle,
+          description: siteDescription,
+          images: [
+            {
+              url: "LS-screenshot-min.jpeg",
+              width: 1200,
+              height: 630,
+              alt: "Luke Stettner",
+            },
+          ],
+          site_name: "Luke Stettner",
+        }}
+        twitter={{
+          cardType: "summary_large_image",
+        }}
       />
-      <Projects
-        projects={projects}
-        onProjectClicked={(id, title, projectOpen) => onProjectClicked(id, title, projectOpen)}
-        artworkCloseClicked={artworkCloseClicked}
-        backgroundColor={backgroundColor.hex}
-      />
-    </div>
+
+      <div
+        id="main"
+        className={applyFontFamily()}
+        style={{ backgroundColor: backgroundColor.hex, color: fontColor.hex }}
+      >
+        <Navigation
+          menuString={menuString}
+          backgroundColor={backgroundColor.hex}
+          fontColor={fontColor.hex}
+          currentProject={currentProject}
+          projects={projectTitleAndId}
+          onArtworkCloseClicked={() => onArtworkCloseClicked()}
+          siteTitle={siteTitle}
+        />
+        <Projects
+          projects={projects}
+          onProjectClicked={(id, title, projectOpen) => onProjectClicked(id, title, projectOpen)}
+          artworkCloseClicked={artworkCloseClicked}
+          backgroundColor={backgroundColor.hex}
+        />
+      </div>
+    </>
   );
 }
 
@@ -87,5 +103,6 @@ export const getStaticProps = async () => {
 
   return {
     props: { projects, projectTitleAndId, siteSettings },
+    revalidate: 3600
   };
 };

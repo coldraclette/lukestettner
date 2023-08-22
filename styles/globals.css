@@ -224,6 +224,8 @@ a:hover {
   z-index: 999;
   font-size: 26px;
   width: 100%;
+  max-height: 100vh; 
+  overflow-y: scroll;
 }
 
 .navigation--opened ul {
