@@ -29,6 +29,12 @@ export const ProjectItems = ({
   };
 
   useEffect(() => {
+    const handleScroll = (e) => {
+      e.preventDefault();
+      e.currentTarget.scrollLeft += e.deltaY;
+    };
+
+    rowRef.current.addEventListener("wheel", handleScroll);
     if (artworkCloseClicked.clicked) {
       rowRef.current.classList.remove("imagerowlarge");
       rowRef.current.scrollLeft = rowRef.current.offsetLeft / 5.5;
@@ -36,6 +42,10 @@ export const ProjectItems = ({
       hideOverlay();
       onProjectClicked(projectId, "", false);
     }
+
+    return () => {
+      rowRef.current.removeEventListener("wheel", handleScroll);
+    };
   }, [artworkCloseClicked]);
 
   const handleProjectClick = () => {
@@ -50,13 +60,14 @@ export const ProjectItems = ({
 
   return (
     <div className="imagerow" id={projectId} ref={rowRef}>
-      {items && items.map((item) => {
-        return (
-          <div key={item._key} className="rowItem" onClick={() => handleProjectClick()}>
-            {renderCorrectItem(item)}
-          </div>
-        );
-      })}
+      {items &&
+        items.map((item) => {
+          return (
+            <div key={item._key} className="rowItem" onClick={() => handleProjectClick()}>
+              {renderCorrectItem(item)}
+            </div>
+          );
+        })}
     </div>
   );
 };
