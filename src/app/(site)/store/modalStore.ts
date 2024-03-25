@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from 'react';
-import { create } from 'zustand';
+import { useEffect } from "react";
+import { create } from "zustand";
 
-import { ProjectProps } from '../types';
+import { ProjectProps } from "../types";
 
 interface ModalState {
   selectedProject: ProjectProps | null;
@@ -38,12 +38,17 @@ const useModalStore = create<ModalState>((set) => ({
       selectedImageIndex: imageIndex,
     });
   },
-  closeModal: () => set({ selectedProject: null, isModalOpen: false }),
+  closeModal: () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("project");
+    window.history.pushState(null, "", url.toString());
+    set({ selectedProject: null, isModalOpen: false });
+  },
   setProjects: (projects: ProjectProps[]) => set({ projects }),
   scrollToProject: (projectId: string) => {
     const projectEl = document.getElementById(projectId);
     if (projectEl) {
-      projectEl.scrollIntoView({ behavior: 'smooth' });
+      projectEl.scrollIntoView({ behavior: "smooth" });
     }
   },
   selectedImageIndex: 0,
@@ -57,9 +62,9 @@ export const useLockBodyScroll = () => {
 
   useEffect(() => {
     if (isIndexMenuOpen || isModalOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
   }, [isIndexMenuOpen, isModalOpen]);
 };

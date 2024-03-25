@@ -12,11 +12,22 @@ interface ProjectListProps {
 }
 
 export default function ProjectsList({ projects }: ProjectListProps) {
-  const { setProjects } = useModalStore();
+  const { setProjects, openModal } = useModalStore();
 
   useEffect(() => {
     setProjects(projects);
   }, [projects, setProjects]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectTitle = urlParams.get('project');
+    if (projectTitle) {
+      const project = projects.find((p) => p.title === projectTitle);
+      if (project) {
+        openModal(project); 
+      }
+    }
+  }, [projects]);
 
   return (
     <>

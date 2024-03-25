@@ -39,6 +39,7 @@ export default function SingleImage({
           placeholder="blur"
           blurDataURL={image.asset.metadata.lqip}
           loading="eager"
+          quality={100}
         />
       </div>
     );
@@ -58,6 +59,7 @@ export default function SingleImage({
         className={`h-[150px] w-auto object-contain `}
         placeholder="blur"
         blurDataURL={image.asset.metadata.lqip}
+        quality={100}
       />
     </div>
   );
