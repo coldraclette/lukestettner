@@ -17,6 +17,7 @@ export default function ProjectsList({ projects }: ProjectListProps) {
   useEffect(() => {
     setProjects(projects);
   }, [projects, setProjects]);
+  
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
