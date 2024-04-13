@@ -23,4 +23,14 @@ export const structure = (S: any) =>
             .filter('_type == "project"')
             .defaultOrdering([{ field: 'title', direction: 'asc' }])
         ),
+      S.divider(),
+      S.listItem()
+        .title('Settings')
+        .icon(DocumentIcon)
+        .child(
+          S.document()
+            .schemaType('settings')
+            .documentId('settings')
+            .title('Settings')
+        ),
     ]);

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { FreeMode, Mousewheel } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Mousewheel } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import "swiper/css";
+import 'swiper/css';
 
-import useModalStore from "../store/modalStore";
-import { ProjectImage, ProjectProps, ProjectTextBlock } from "../types";
-import { composeClassNames } from "../utils";
-import SingleImage from "./SingleImage";
-import SingleTextblock from "./SingleTextblock";
+import useModalStore, { useLockBodyScroll } from '../store/modalStore';
+import { ProjectImage, ProjectProps, ProjectTextBlock } from '../types';
+import { composeClassNames } from '../utils';
+import SingleImage from './SingleImage';
+import SingleTextblock from './SingleTextblock';
 
 interface ProjectRowProps {
   project: ProjectProps;
@@ -17,32 +17,45 @@ interface ProjectRowProps {
   initialSlide?: number;
 }
 
-export default function ProjectRow({ project, inModal = false, initialSlide }: ProjectRowProps) {
+export default function ProjectRow({
+  project,
+  inModal = false,
+  initialSlide,
+}: ProjectRowProps) {
   const { openModal } = useModalStore();
 
   const onImageClick = (index: number) => {
     if (!inModal) {
       openModal(project, index);
       const url = new URL(window.location.href);
-      url.searchParams.set("project", project.title);
-      window.history.pushState(null, "", url.toString());
+      url.searchParams.set('project', project.title);
+      window.history.pushState(null, '', url.toString());
     }
   };
 
-  const renderCorrectItem = (item: ProjectImage | ProjectTextBlock, index: number) => {
-    if (item._type === "image") {
+  const renderCorrectItem = (
+    item: ProjectImage | ProjectTextBlock,
+    index: number
+  ) => {
+    if (item._type === 'image') {
       return (
-        <SingleImage image={item} inModal={inModal} onImageClick={onImageClick} index={index} />
+        <SingleImage
+          image={item}
+          inModal={inModal}
+          onImageClick={onImageClick}
+          index={index}
+        />
       );
-    } else if (item._type === "textblock") {
+    } else if (item._type === 'textblock') {
       return <SingleTextblock content={item} inModal={inModal} />;
     }
   };
 
   return (
     <>
+      {useLockBodyScroll()}
       <Swiper
-        slidesPerView={"auto"}
+        slidesPerView={'auto'}
         className="swiper-project h-full w-full"
         mousewheel={inModal ? { forceToAxis: false } : { forceToAxis: true }}
         modules={[Mousewheel, FreeMode]}
@@ -50,18 +63,21 @@ export default function ProjectRow({ project, inModal = false, initialSlide }: P
         initialSlide={initialSlide}
       >
         {project.items &&
-          project.items.map((item: ProjectImage | ProjectTextBlock, index: number) => {
-            return (
-              <SwiperSlide
-                key={item._key}
-                className={composeClassNames({
-                  "cursor-pointer first-of-type:pl-4 md:first-of-type:pl-12": !inModal,
-                })}
-              >
-                {renderCorrectItem(item, index)}
-              </SwiperSlide>
-            );
-          })}
+          project.items.map(
+            (item: ProjectImage | ProjectTextBlock, index: number) => {
+              return (
+                <SwiperSlide
+                  key={item._key}
+                  className={composeClassNames({
+                    'cursor-pointer first-of-type:pl-4 md:first-of-type:pl-12':
+                      !inModal,
+                  })}
+                >
+                  {renderCorrectItem(item, index)}
+                </SwiperSlide>
+              );
+            }
+          )}
       </Swiper>
       {!inModal && (
         <div className="mb-6 px-4 pt-2 text-lg leading-5 md:mb-2 md:pl-12">

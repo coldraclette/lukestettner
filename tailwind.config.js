@@ -6,9 +6,6 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    fontFamily: {
-      univers: ['var(--font-univers)', 'serif'],
-    },
     colors: {
       black: '#000',
       red: '#FF0000',

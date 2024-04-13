@@ -28,3 +28,14 @@ export async function getLandingPage() {
   const data = await client.fetch(query);
   return data;
 }
+
+
+export async function getSettings() {
+  const query = `*[_type == "settings"][0] {
+    googleFontName,
+    fontColor
+  }`;
+
+  const data = await client.fetch(query);
+  return data;
+}

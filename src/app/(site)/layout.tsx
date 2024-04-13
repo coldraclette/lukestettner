@@ -1,40 +1,63 @@
-'use client';
+import { Analytics } from "@vercel/analytics/react";
+import Univers from "next/font/local";
+import Navigation from "./components/Navigation";
 
-import Univers from 'next/font/local';
-import { Analytics } from '@vercel/analytics/react';
+import "./globals.css";
 
-import Navigation from './components/Navigation';
+import { getSettings } from "../../../sanity/sanity.query";
 
-import './globals.css';
-
-import { useLockBodyScroll } from './store/modalStore';
-import { siteConfig } from './site.config';
+export const revalidate = 60;
 
 const univers = Univers({
-  variable: '--font-univers',
-  display: 'swap',
+  variable: "--font-univers",
+  display: "swap",
   src: [
     {
-      path: '/font/univers.ttf',
-      weight: '400',
-      style: 'normal',
-    }
-  ]
+      path: "/font/univers.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
 });
 
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { googleFontName, fontColor } = await getSettings();
 
+  const defaultFont = () => {
+    if (googleFontName) {
+      return;
+    } else {
+      return univers.className;
+    }
+  };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  useLockBodyScroll();
   return (
-    <html lang="en" className={univers.className}>
+    <html lang="en" className={defaultFont()}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        {googleFontName && (
+          <link
+            href={`https://fonts.googleapis.com/css2?family=${googleFontName.replace(
+              /\s/g,
+              "+"
+            )}&display=swap`}
+            rel="stylesheet"
+          />
+        )}
+        <style>
+          {`
+          body {
+            font-family: ${googleFontName || "var(--font-univers)"};
+            color: ${fontColor.hex};
+          }
+        `}
+        </style>
+      </head>
+
       <body>
         <Navigation />
-        <main className="py-12 pt-24">{children}</main>
+        <main className="font-primary py-12 pt-24">{children}</main>
         <Analytics />
       </body>
     </html>

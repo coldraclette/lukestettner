@@ -3,8 +3,8 @@
  */
 
 import { defineConfig } from 'sanity';
-import { media } from 'sanity-plugin-media';
-import { deskTool } from 'sanity/desk';
+import { structureTool } from 'sanity/structure';
+import {colorInput} from '@sanity/color-input'
 
 import { structure } from './sanity/deskStructure';
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
@@ -17,5 +17,5 @@ export default defineConfig({
   dataset,
   // Add and edit the content schema in the './sanity/schema' folder
   schema,
-  plugins: [deskTool({ structure }), media()],
+  plugins: [structureTool({ structure }), colorInput()],
 });
