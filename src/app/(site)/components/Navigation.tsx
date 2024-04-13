@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import useModalStore from '../store/modalStore';
-import { ProjectProps } from '../types';
-import Index from './Index';
+import useModalStore from "../store/modalStore";
+import { ProjectProps } from "../types";
+import Index from "./Index";
 
 export default function Navigation() {
   const {
@@ -33,6 +33,9 @@ export default function Navigation() {
 
     if (project) {
       openModal(project);
+      const url = new URL(window.location.href);
+      url.searchParams.set("project", project.title);
+      window.history.pushState(null, "", url.toString());
     }
 
     scrollToProject(projectId);
@@ -55,7 +58,7 @@ export default function Navigation() {
             </button>
           ) : (
             <button className="flex shrink-0" onClick={toggleIndexMenu}>
-              {isIndexMenuOpen && 'close '}index
+              {isIndexMenuOpen && "close "}index
             </button>
           )}
         </div>
